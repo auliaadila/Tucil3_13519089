@@ -1,4 +1,4 @@
-
+from math import radians, cos, sin, asin, sqrt
 
 # Membaca masukan dari file txt dan mengembalikannya 
 # dalam bentuk array
@@ -63,4 +63,37 @@ dictionary_adj = makeDictionary(adjacentMatrix,nodeMatrix)
 for key, value in dictionary_adj.items():
     print(key, " : ",value)
 
+def dist(hor,ver):
+    x1 = radians(float(hor[1]))
+    x2 = radians(float(ver[1]))
+    y1 = radians(float(hor[2]))
+    y2 = radians(float(ver[2]))
+    
+    # Haversine formula 
+    dx = x2 - x1 #longitude
+    dy = y2 - y1 #latitude
+    a = sin(dy / 2)**2 + cos(y1) * cos(y2) * sin(dx / 2)**2
+    c = 2 * asin(sqrt(a)) 
+     
+    # Radius of earth in kilometers. Use 3956 for miles
+    r = 6371
+    return(c * r)
+
+def changeMatrix(adjacentMatrix, nodeMatrix):
+    newadjacentMatrix = [ [ 0 for i in range(len(adjacentMatrix)) ] for j in range(len(adjacentMatrix)) ]
+
+    for i in range(len(adjacentMatrix)):
+        for j in range(i):
+            if(adjacentMatrix[i][j] == "1"):
+                newadjacentMatrix[i][j] = dist(nodeMatrix[i],nodeMatrix[j])
+                newadjacentMatrix[j][i] = newadjacentMatrix[i][j]
+            #print(adjacentMatrix[i][j], end=' ')
+        #print('\n')
+    return newadjacentMatrix
+
+new = changeMatrix(adjacentMatrix, nodeMatrix)
+for i in range(len(new)):
+    for j in range(len(new)):
+        print(new[i][j], end =' ')
+    print('\n')
 
