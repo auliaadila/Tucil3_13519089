@@ -47,22 +47,6 @@ nodeMatrix = makeNodeMatrix(arrayOfWords)
 for i in range (len(nodeMatrix)):
     print(nodeMatrix[i])
 
-#Membuat dictionary dari matrix dan tetangganya
-def makeDictionary(adjacentMatrix,nodeMatrix):
-    dictionary_adj = dict()
-    for i in range(len(adjacentMatrix)):
-        tempAdj = []
-        for j in range (len(adjacentMatrix)):
-            if (adjacentMatrix[i][j] != '0'):
-                tempAdj.append(nodeMatrix[j][0])
-        dictionary_adj.setdefault(nodeMatrix[i][0], tempAdj)
-    return dictionary_adj
-
-print("")
-dictionary_adj = makeDictionary(adjacentMatrix,nodeMatrix)
-for key, value in dictionary_adj.items():
-    print(key, " : ",value)
-
 def dist(hor,ver):
     #Penyederhanaan : longitude (x), latitude(y)
     x1 = radians(float(hor[1]))
@@ -90,6 +74,23 @@ def changeMatrix(adjacentMatrix, nodeMatrix):
             #print(adjacentMatrix[i][j], end=' ')
         #print('\n')
     return newadjacentMatrix
+
+#Membuat dictionary dari matrix dan tetangganya
+def makeDictionary(adjacentMatrix,nodeMatrix):
+    dictionary_adj = dict()
+    weighted_adj_matrix = changeMatrix(adjacentMatrix, nodeMatrix)
+    for i in range(len(adjacentMatrix)):
+        tempAdj = []
+        for j in range (len(adjacentMatrix)):
+            if (adjacentMatrix[i][j] != '0'):
+                tempAdj.append((nodeMatrix[j][0], weighted_adj_matrix[i][j]))
+        dictionary_adj.setdefault(nodeMatrix[i][0], tempAdj)
+    return dictionary_adj
+
+print("")
+dictionary_adj = makeDictionary(adjacentMatrix,nodeMatrix)
+for key, value in dictionary_adj.items():
+    print(key, " : ",value)
 
 new = changeMatrix(adjacentMatrix, nodeMatrix)
 for i in range(len(new)):
