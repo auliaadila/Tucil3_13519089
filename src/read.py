@@ -64,6 +64,7 @@ for key, value in dictionary_adj.items():
     print(key, " : ",value)
 
 def dist(hor,ver):
+    #Penyederhanaan : longitude (x), latitude(y)
     x1 = radians(float(hor[1]))
     x2 = radians(float(ver[1]))
     y1 = radians(float(hor[2]))
@@ -75,7 +76,6 @@ def dist(hor,ver):
     a = sin(dy / 2)**2 + cos(y1) * cos(y2) * sin(dx / 2)**2
     c = 2 * asin(sqrt(a)) 
      
-    # Radius of earth in kilometers. Use 3956 for miles
     r = 6371
     return(c * r)
 
