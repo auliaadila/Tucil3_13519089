@@ -48,6 +48,8 @@ def sortVisitedNodes(visited_Nodes):
     new_visited_Nodes = dict(sorted(visited_Nodes.items(), key=lambda item: item[1][2]))
     return new_visited_Nodes
 
+
+
 def aStar(adjacentMatrix, nodeMatrix, source, destination):
     opened = dict() #berisi node yang diekspan dan akan dibandingkan nilainya
     visited_Nodes = dict()
@@ -76,13 +78,14 @@ def aStar(adjacentMatrix, nodeMatrix, source, destination):
                     update_value = {temp_adj[i][0] : (temp_gn, temp_hn, temp_fn, current_node)}
                     visited_Nodes.update(update_value)
                     opened.update(update_value)
-                    
+                  
         #sort visited nodes
         visited_Nodes = sortVisitedNodes(visited_Nodes)
+        '''
         print("sorted visited")
         for key, value in visited_Nodes.items():
             print(key, " : ",value)
-        print("")
+        print("")'''
         for key, value in visited_Nodes.items():
             if (key in opened.keys()):
                 current_node = key
@@ -98,3 +101,9 @@ def aStar(adjacentMatrix, nodeMatrix, source, destination):
             current_backtrack = visited_Nodes.get(current_backtrack)[3]
     
     return closed, visited_Nodes
+
+def getTotalCost(closed,visited_Nodes):
+    return visited_Nodes.get(closed[len(closed)-1])[2]
+
+def getCost(node1, node2, weighted_adj_matrix, nodeMatrix):
+    return weighted_adj_matrix[getIdx(nodeMatrix,node1)][getIdx(nodeMatrix,node2)]

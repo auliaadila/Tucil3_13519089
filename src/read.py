@@ -48,18 +48,17 @@ for i in range (len(nodeMatrix)):
     print(nodeMatrix[i]) """
 
 def dist(nodeMatrix, source, destination):
-    #Penyederhanaan : longitude (x), latitude(y)
-    
+    #Penyederhanaan : lat (x), long(y)
     for i in range (len(nodeMatrix)):
         if (source == nodeMatrix[i][0]):
             node1 = nodeMatrix[i]
         if (destination == nodeMatrix[i][0]):
             node2 = nodeMatrix[i]
             
-    x1 = radians(float(node1[1]))
-    x2 = radians(float(node2[1]))
-    y1 = radians(float(node1[2]))
-    y2 = radians(float(node2[2]))    
+    x1 = radians(float(node1[2]))
+    x2 = radians(float(node2[2]))
+    y1 = radians(float(node1[1]))
+    y2 = radians(float(node2[1]))    
     # Haversine formula 
     dx = x2 - x1 #longitude
     dy = y2 - y1 #latitude
@@ -75,7 +74,7 @@ def changeMatrix(adjacentMatrix, nodeMatrix):
 
     for i in range(len(adjacentMatrix)):
         for j in range(i):
-            if(adjacentMatrix[i][j] != "0"):
+            if(adjacentMatrix[i][j] == "1"):
                 newadjacentMatrix[i][j] = dist(nodeMatrix, nodeMatrix[i][0],nodeMatrix[j][0])
                 newadjacentMatrix[j][i] = newadjacentMatrix[i][j]
             #print(adjacentMatrix[i][j], end=' ')
