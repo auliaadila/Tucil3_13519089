@@ -15,12 +15,6 @@ def makeArrayofWords(lines):
         arrayOfWords.append(line)
     return arrayOfWords
 
-
-""" lines = readinput("itb.txt")
-arrayOfWords = makeArrayofWords(lines)
-for i in range (len(arrayOfWords)):
-    print(arrayOfWords[i]) """
-
 # Memisahkan matriks ketetanggaan dari input file
 def makeAdjancentMatrix(arrayOfWords):
     adjacentMatrix = []
@@ -36,16 +30,6 @@ def makeNodeMatrix(arrayOfWords):
     for i in range (1,N+1):
         nodeMatrix.append(arrayOfWords[i])
     return nodeMatrix
-
-""" print("")
-adjacentMatrix = makeAdjancentMatrix(arrayOfWords)
-for i in range (len(adjacentMatrix)):
-    print(adjacentMatrix[i])
-
-print("")
-nodeMatrix = makeNodeMatrix(arrayOfWords)
-for i in range (len(nodeMatrix)):
-    print(nodeMatrix[i]) """
 
 def dist(nodeMatrix, source, destination):
     #Penyederhanaan : lat (x), long(y)
@@ -92,33 +76,3 @@ def makeDictionary(adjacentMatrix,nodeMatrix):
                 tempAdj.append((nodeMatrix[j][0], weighted_adj_matrix[i][j]))
         dictionary_adj.setdefault(nodeMatrix[i][0], tempAdj)
     return dictionary_adj
-
-
-""" print("")
-dictionary_adj = makeDictionary(adjacentMatrix,nodeMatrix)
-for key, value in dictionary_adj.items():
-    print(key, " : ",value)
-
-new = changeMatrix(adjacentMatrix, nodeMatrix)
-for i in range(len(new)):
-    for j in range(len(new)):
-        print(new[i][j], end =' ')
-    print('\n')
-
-
-visited_Nodes = dict()
-
-for i in range(len(adjacentMatrix)):
-    visited_Nodes.setdefault(nodeMatrix[i][0],(0,0,0,"A"))
-    #print(visited_Nodes.get(nodeMatrix[i][0])[3],"\n")
-    if (i%2 > 0):
-        update_value = {nodeMatrix[i][0] : (3,-1,i-2,"A")}
-        visited_Nodes.update(update_value)
-
-new_visited_Nodes = dict(sorted(visited_Nodes.items(), key=lambda item: item[1][2]))
-    
-for key, value in new_visited_Nodes.items():
-    print(key, " : ",value)
-
-print(list(new_visited_Nodes.keys())[0])
- """
