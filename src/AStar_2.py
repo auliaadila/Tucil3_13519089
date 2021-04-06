@@ -7,7 +7,7 @@ def functionGN(adjacentMatrix, parent, current, curr_cost):
     adj_parent = adjacentMatrix.get(parent)
     for i in range (len(adj_parent)):
         if (adj_parent[i][0] == current):
-            return adj_parent[i][1]+curr_cost
+            return round(adj_parent[i][1]+curr_cost,3)
     return -1
 
 def searchDist (dictionary_adj,node1, node2):
@@ -41,7 +41,7 @@ def updateGN(start_node, end_node, visited_Nodes, dictionary_adj, nodeMatrix):
         
 
 def functionFN(adjacentMatrix, parent, current, destination, curr_cost, nodeMatrix):
-    return functionGN(adjacentMatrix, parent, current, curr_cost)+functionHN(nodeMatrix,current, destination)
+    return round(functionGN(adjacentMatrix, parent, current, curr_cost)+functionHN(nodeMatrix,current, destination),3)
 
 def sortVisitedNodes(visited_Nodes):
     #new_visited_Nodes = dict()
@@ -63,13 +63,10 @@ def aStar(adjacentMatrix, nodeMatrix, source, destination):
     visited_Nodes.setdefault(source,(0,functionHN(nodeMatrix, source, destination),functionHN(nodeMatrix, source, destination),""))
     #jangan lupa tangani kalau ga nemu path
     while (current_node != destination):
-        temp_adj = adjacentMatrix.get(current_node) #tetangga yg lg ditinja
+        temp_adj = adjacentMatrix.get(current_node) #tetangga yg lg ditinjau
         for i in range(len(temp_adj)):
-            print("tinjau tetangga", current_node," : ", i+1)
             temp_gn = functionGN(adjacentMatrix, current_node, temp_adj[i][0], current_gn)
-            print("gn", i+1)
             temp_hn = functionHN(nodeMatrix, temp_adj[i][0], destination)
-            print("hn", i+1)
             temp_fn = temp_gn + temp_hn
             if (temp_adj[i][0] not in visited_Nodes.keys()):
                 visited_Nodes.setdefault(temp_adj[i][0], (temp_gn, temp_hn, temp_fn, current_node))

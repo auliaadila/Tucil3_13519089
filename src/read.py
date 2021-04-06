@@ -59,8 +59,7 @@ def dist(nodeMatrix, source, destination):
     x1 = radians(float(node1[1]))
     x2 = radians(float(node2[1]))
     y1 = radians(float(node1[2]))
-    y2 = radians(float(node2[2]))
-    
+    y2 = radians(float(node2[2]))    
     # Haversine formula 
     dx = x2 - x1 #longitude
     dy = y2 - y1 #latitude
@@ -68,7 +67,8 @@ def dist(nodeMatrix, source, destination):
     c = 2 * asin(sqrt(a)) 
      
     r = 6371
-    return(c * r)
+    result = (c * r)*1000
+    return round(result,3)
 
 def changeMatrix(adjacentMatrix, nodeMatrix):
     newadjacentMatrix = [ [ 0 for i in range(len(adjacentMatrix)) ] for j in range(len(adjacentMatrix)) ]
@@ -76,7 +76,7 @@ def changeMatrix(adjacentMatrix, nodeMatrix):
     for i in range(len(adjacentMatrix)):
         for j in range(i):
             if(adjacentMatrix[i][j] != "0"):
-                newadjacentMatrix[i][j] = dist(nodeMatrix, nodeMatrix[i][0],nodeMatrix[j][0])*1000
+                newadjacentMatrix[i][j] = dist(nodeMatrix, nodeMatrix[i][0],nodeMatrix[j][0])
                 newadjacentMatrix[j][i] = newadjacentMatrix[i][j]
             #print(adjacentMatrix[i][j], end=' ')
         #print('\n')
