@@ -16,10 +16,10 @@ def makeArrayofWords(lines):
     return arrayOfWords
 
 
-lines = readinput("itb.txt")
+""" lines = readinput("itb.txt")
 arrayOfWords = makeArrayofWords(lines)
 for i in range (len(arrayOfWords)):
-    print(arrayOfWords[i])
+    print(arrayOfWords[i]) """
 
 # Memisahkan matriks ketetanggaan dari input file
 def makeAdjancentMatrix(arrayOfWords):
@@ -37,7 +37,7 @@ def makeNodeMatrix(arrayOfWords):
         nodeMatrix.append(arrayOfWords[i])
     return nodeMatrix
 
-print("")
+""" print("")
 adjacentMatrix = makeAdjancentMatrix(arrayOfWords)
 for i in range (len(adjacentMatrix)):
     print(adjacentMatrix[i])
@@ -45,13 +45,21 @@ for i in range (len(adjacentMatrix)):
 print("")
 nodeMatrix = makeNodeMatrix(arrayOfWords)
 for i in range (len(nodeMatrix)):
-    print(nodeMatrix[i])
+    print(nodeMatrix[i]) """
 
-def dist(hor,ver):
-    x1 = radians(float(hor[1]))
-    x2 = radians(float(ver[1]))
-    y1 = radians(float(hor[2]))
-    y2 = radians(float(ver[2]))
+def dist(nodeMatrix, source, destination):
+    #Penyederhanaan : longitude (x), latitude(y)
+    
+    for i in range (len(nodeMatrix)):
+        if (source == nodeMatrix[i][0]):
+            node1 = nodeMatrix[i]
+        if (destination == nodeMatrix[i][0]):
+            node2 = nodeMatrix[i]
+            
+    x1 = radians(float(node1[1]))
+    x2 = radians(float(node2[1]))
+    y1 = radians(float(node1[2]))
+    y2 = radians(float(node2[2]))
     
     # Haversine formula 
     dx = x2 - x1 #longitude
@@ -59,7 +67,6 @@ def dist(hor,ver):
     a = sin(dy / 2)**2 + cos(y1) * cos(y2) * sin(dx / 2)**2
     c = 2 * asin(sqrt(a)) 
      
-    # Radius of earth in kilometers. Use 3956 for miles
     r = 6371
     return(c * r)
 
@@ -68,8 +75,8 @@ def changeMatrix(adjacentMatrix, nodeMatrix):
 
     for i in range(len(adjacentMatrix)):
         for j in range(i):
-            if(adjacentMatrix[i][j] == "1"):
-                newadjacentMatrix[i][j] = dist(nodeMatrix[i],nodeMatrix[j])
+            if(adjacentMatrix[i][j] != "0"):
+                newadjacentMatrix[i][j] = dist(nodeMatrix, nodeMatrix[i][0],nodeMatrix[j][0])*1000
                 newadjacentMatrix[j][i] = newadjacentMatrix[i][j]
             #print(adjacentMatrix[i][j], end=' ')
         #print('\n')
@@ -87,7 +94,8 @@ def makeDictionary(adjacentMatrix,nodeMatrix):
         dictionary_adj.setdefault(nodeMatrix[i][0], tempAdj)
     return dictionary_adj
 
-print("")
+
+""" print("")
 dictionary_adj = makeDictionary(adjacentMatrix,nodeMatrix)
 for key, value in dictionary_adj.items():
     print(key, " : ",value)
@@ -98,3 +106,20 @@ for i in range(len(new)):
         print(new[i][j], end =' ')
     print('\n')
 
+
+visited_Nodes = dict()
+
+for i in range(len(adjacentMatrix)):
+    visited_Nodes.setdefault(nodeMatrix[i][0],(0,0,0,"A"))
+    #print(visited_Nodes.get(nodeMatrix[i][0])[3],"\n")
+    if (i%2 > 0):
+        update_value = {nodeMatrix[i][0] : (3,-1,i-2,"A")}
+        visited_Nodes.update(update_value)
+
+new_visited_Nodes = dict(sorted(visited_Nodes.items(), key=lambda item: item[1][2]))
+    
+for key, value in new_visited_Nodes.items():
+    print(key, " : ",value)
+
+print(list(new_visited_Nodes.keys())[0])
+ """
