@@ -82,8 +82,6 @@ def aStar(adjacentMatrix, nodeMatrix, source, destination):
                     
         #sort visited nodes
         visited_Nodes = sortVisitedNodes(visited_Nodes)
-        #sort visited nodes
-        visited_Nodes = sortVisitedNodes(visited_Nodes)
         print("sorted visited")
         for key, value in visited_Nodes.items():
             print(key, " : ",value)

@@ -51,6 +51,7 @@ def sortVisitedNodes(visited_Nodes):
 def aStar(adjacentMatrix, nodeMatrix, source, destination):
     opened = dict() #berisi node yang diekspan dan akan dibandingkan nilainya
     visited_Nodes = dict()
+<<<<<<< HEAD
     closed = []
     # inisialisasi dict visited_Nodes
     # visited_Nodes dictionary
@@ -58,6 +59,11 @@ def aStar(adjacentMatrix, nodeMatrix, source, destination):
     #          0      1      2        3
     # node - g(n) - h(n) - f(n) - prev_node
 
+=======
+
+    path.append(source)
+    #visited_Nodes.setdefault((source, functionFN(0,Heuristik(source,destination))))
+>>>>>>> 00ae8b27e756776a774f7482e0edf0e551286ec6
     current_gn = 0
     current_node = source
     visited_Nodes.setdefault(source,(0,functionHN(nodeMatrix, source, destination),functionHN(nodeMatrix, source, destination),""))
@@ -93,6 +99,7 @@ def aStar(adjacentMatrix, nodeMatrix, source, destination):
                 del opened[current_node]
                 break
 
+<<<<<<< HEAD
     if (current_node == destination):
         current_backtrack = current_node
 
@@ -101,3 +108,37 @@ def aStar(adjacentMatrix, nodeMatrix, source, destination):
             current_backtrack = visited_Nodes.get(current_backtrack)[3]
     
     return closed, visited_Nodes
+=======
+    while (destination not in visited_Nodes.keys()):
+        temp_adjMatrix = adjacentMatrix.get(source) #
+        for i in range (len(temp_adjMatrix)):
+
+
+""" A  :  ['B']
+
+B  :  ['A', 'C', 'E', 'G']
+
+C  :  ['B', 'D']
+pathFIX : C
+visited : (akan dibandingkan)
+
+visited : BD
+
+pathFIX : CDEHIKB
+visited : B F E J --> dipilih anak dengan f(n) terkecil
+
+temp_adj : 
+path : CD
+
+D  :  ['C', 'E', 'I']
+
+E  :  ['B', 'D', 'F', 'H']
+F  :  ['E', 'G', 'J']
+G  :  ['B', 'F']
+H  :  ['E', 'I', 'J', 'L']
+I  :  ['D', 'H', 'K']
+J  :  ['F', 'H', 'M']
+K  :  ['I', 'L']
+L  :  ['H', 'K', 'M']
+M  :  ['J', 'L'] """
+>>>>>>> 00ae8b27e756776a774f7482e0edf0e551286ec6
