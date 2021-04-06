@@ -1,16 +1,37 @@
 # JUPITER 1
 # import folium package
 import folium
-from AStar_2 import aStar, getIdx
+from AStar_2 import aStar, getIdx, getTotalCost
 from read import readinput, makeArrayofWords, makeAdjancentMatrix, makeDictionary, makeNodeMatrix
 
-lines = readinput("itb.txt")
+lines = readinput("alun2.txt")
 arrayOfWords = makeArrayofWords(lines)
 adjacentMatrix = makeAdjancentMatrix(arrayOfWords)
 nodeMatrix = makeNodeMatrix(arrayOfWords)
 dictionary_adj = makeDictionary(adjacentMatrix,nodeMatrix)
 
-closed = aStar(dictionary_adj, nodeMatrix, 'A', 'D')[0]
+listofNodes = []
+for nodes in nodeMatrix:
+    listofNodes.append(nodes[0])
+
+print("============================")    
+print("|List of Available Nodes : |")
+for node in listofNodes:
+    print("|- ",node, "                     |")
+print("============================") 
+
+source = input("Input source: ")
+while (source not in listofNodes):
+    print("Not Available Node")
+    source = input("Input source: ")
+
+destination = input("Input destination: ")
+while (destination not in listofNodes):
+    print("Not Available Node")
+    destination = input("Input destination: ")
+
+visited_Nodes = aStar(dictionary_adj, nodeMatrix, source, destination)[1]
+closed = aStar(dictionary_adj, nodeMatrix, source, destination)[0]
 
 # JUPITER 2
 def Pusat(nodeMatrix):
@@ -73,3 +94,13 @@ def updateMap(closed, dictionary_adj, my_map1, nodeMatrix):
 my_map1 = initializedMap(dictionary_adj, nodeMatrix, my_map1)
 my_map1 = updateMap(closed, dictionary_adj, my_map1, nodeMatrix)
 my_map1
+
+#INFORMASI TAMBAHAN
+print("Shortest Path  : ", end="")
+for i in range(len(closed)):
+    if i < len(closed)-1:
+        print(closed[i], end= " -> ")
+    else:
+        print(closed[i])
+
+print("Total Distance :  m", getTotalCost(closed,visited_Nodes))
