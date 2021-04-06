@@ -19,6 +19,7 @@ Algoritma ini memiliki 3 elemen/fungsi penting, yaitu:
 - [JupyterLab](https://jupyter.org/install)
 - [Folium](https://python-visualization.github.io/folium/installing.html)
 - [Extension Jupyter Notebook pada VSCode](https://marketplace.visualstudio.com/items?itemName=ms-toolsai.jupyter)
+- [Visual Studio Code (Alternatif)](https://code.visualstudio.com/download)
 
 ## Executing
 - Instalasi Requirement Folium dan JupterLab dapat dilakukan dengan menjalankan perintah `$ pip install folium` dan `pip install jupyterlab` pada Terminal
